@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesNotifier.TelegramBot", "SalesNotifier.TelegramBot\SalesNotifier.TelegramBot.csproj", "{21E55FE3-CCAC-479B-8648-3E099F22750C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesNotifier.Persistence", "SalesNotifier.Persistence\SalesNotifier.Persistence.csproj", "{401AD6D5-18C7-4E90-BA5D-080FD7CC1FE0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21E55FE3-CCAC-479B-8648-3E099F22750C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21E55FE3-CCAC-479B-8648-3E099F22750C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21E55FE3-CCAC-479B-8648-3E099F22750C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21E55FE3-CCAC-479B-8648-3E099F22750C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{401AD6D5-18C7-4E90-BA5D-080FD7CC1FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{401AD6D5-18C7-4E90-BA5D-080FD7CC1FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{401AD6D5-18C7-4E90-BA5D-080FD7CC1FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{401AD6D5-18C7-4E90-BA5D-080FD7CC1FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
