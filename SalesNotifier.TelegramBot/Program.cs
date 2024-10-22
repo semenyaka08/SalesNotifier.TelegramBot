@@ -6,17 +6,21 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 Log.Information("Starting up!");
+
 try
 {
     var environmentVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
     Log.Information($"Environment: {environmentVariable}");
-    CreateHostBuilder(args).Build().StartReceive();
+    
+    var host = CreateHostBuilder(args).Build();
+    host.StartReceive();
+
     Log.Information("Stopped cleanly");
     return 0;
 }
-catch (Exception ex)
+catch (Exception ex) when (ex is not HostAbortedException)
 {
-    Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+    Log.Fatal(ex, "An unhandled exception occurred during bootstrapping");
     return 1;
 }
 finally
@@ -33,8 +37,8 @@ static IHostBuilder CreateHostBuilder(string[] args)
         .AddEnvironmentVariables()
         .Build();
     
-    return Host.CreateDefaultBuilder(args).
-        UseSerilog((context, services, configuration) => configuration
+    return Host.CreateDefaultBuilder(args)
+        .UseSerilog((context, services, configuration) => configuration
             .ReadFrom.Configuration(context.Configuration)
             .ReadFrom.Services(services)
         )

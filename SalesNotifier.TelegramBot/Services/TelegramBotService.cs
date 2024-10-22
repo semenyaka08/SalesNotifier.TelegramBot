@@ -60,7 +60,6 @@ public class TelegramBotService : ITelegramBotService
         {
             _logger.LogError("{@Exception}", ex);
         }
-
     }
 
     private async Task HandleUpdateBody(Update update, CancellationToken cancellationToken)
