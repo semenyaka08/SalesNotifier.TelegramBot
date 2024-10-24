@@ -1,5 +1,8 @@
 using CommandWorkflows.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using SaleNotifier.TelegramBot.Commands;
+using SaleNotifier.TelegramBot.Commands.Workflows;
+using SaleNotifier.TelegramBot.Communication;
 using SaleNotifier.TelegramBot.Services;
 using SaleNotifier.TelegramBot.Services.Interfaces;
 using SalesNotifier.Persistence;
@@ -13,8 +16,22 @@ public static class Extensions
     {
         services.AddCommandRegistry<long>(ServiceLifetime.Scoped);
         services.AddScoped<Settings>(_ => config.Get<Settings>()!);
+        services.AddScoped<ISaleService, SaleService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITelegramBotService, TelegramBotService>();
         services.AddScoped<ICustomCommandExecutor, CustomCommandExecutor>();
+        services.AddScoped<PersistentAdminData>();
+        services.AddScoped<IMenuService, MenuService>();
+        services.RegisterCommand<RecreateSaleCommand>(CommandConstants.CancelSaleCreation, ServiceLifetime.Scoped);
+        services.RegisterCommand<ExitCommand>(CommandConstants.ExitCommand, ServiceLifetime.Scoped);
+        services.RegisterCommand<CancelSaleRecreationCommand>(CommandConstants.CancelSaleRecreation, ServiceLifetime.Scoped);
+        services.RegisterCommand<AddSaleCommand>(CommandConstants.AddSaleCommand, ServiceLifetime.Scoped)
+            .RegisterWorkflow<AddTitleWorkflow>()
+            .RegisterWorkflow<AddDescriptionWorkflow>()
+            .RegisterWorkflow<AddMaleAssortmentLinkWorkflow>()
+            .RegisterWorkflow<AddFemaleAssortmentLinkWorkflow>()
+            .RegisterWorkflow<AddContactLinkWorkflow>()
+            .RegisterWorkflow<AddSaleVerificationWorkflow>();
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(config.GetConnectionString("DefaultConnection"));

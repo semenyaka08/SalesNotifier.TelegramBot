@@ -5,5 +5,5 @@ namespace SaleNotifier.TelegramBot.Services.Interfaces;
 
 public interface ICustomCommandExecutor
 {
-    Task<Response> ExecuteCommandAsync(Update update, long userId);
+    Task<Response> ExecuteCommandAsync(Request request, long userId);
 }

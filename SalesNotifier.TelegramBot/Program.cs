@@ -1,4 +1,5 @@
 using SaleNotifier.TelegramBot;
+using SaleNotifier.TelegramBot.Services.Interfaces;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -13,6 +14,15 @@ try
     Log.Information($"Environment: {environmentVariable}");
     
     var host = CreateHostBuilder(args).Build();
+    
+    using (var scope = host.Services.CreateScope())
+    {
+        var telegramService = scope.ServiceProvider.GetRequiredService<ITelegramBotService>();
+        
+        // Установка команд (или ClearBotCommandsAsync для очистки)
+        await telegramService.SetInitialMenuAsync(); // или ClearBotCommandsAsync()
+    }
+    
     host.StartReceive();
 
     Log.Information("Stopped cleanly");
